@@ -1,0 +1,93 @@
+.popular-section {
+  margin: 2rem 0;
+}
+
+.popular-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1rem;
+}
+
+.popular-item {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(168, 85, 247, 0.2);
+  border-radius: 16px;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+  transition: transform 0.3s ease, border 0.3s ease;
+}
+
+.popular-item:hover {
+  transform: translateY(-3px);
+  border-color: rgba(168, 85, 247, 0.6);
+}
+
+.popular-item img {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.popular-item-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.popular-coin-name {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: white;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.popular-coin-symbol {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.4);
+  text-transform: uppercase;
+}
+
+.popular-coin-price {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.6);
+  margin-top: 2px;
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+  .popular-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .popular-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .popular-item {
+    padding: 0.75rem;
+  }
+}
+
+/* Small mobile */
+@media (max-width: 320px) {
+  .popular-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .popular-item {
+    padding: 0.75rem;
+  }
+}
