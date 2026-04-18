@@ -9,22 +9,25 @@
 .app-header {
   text-align: center;
   margin-bottom: 2rem;
+  padding-top: 1rem;
 }
 
 .app-title {
-  font-size: 3rem;
+  font-size: 3.5rem;
   font-weight: 700;
-  background: linear-gradient(90deg, #a855f7, #7c3aed);
+  background: linear-gradient(90deg, #c084fc, #a855f7, #7c3aed);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  letter-spacing: 2px;
+  letter-spacing: 3px;
+  line-height: 1.2;
 }
 
 .app-subtitle {
-  font-size: 1rem;
-  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.4);
   margin-top: 0.5rem;
+  letter-spacing: 1px;
 }
 
 .section-title {
@@ -77,6 +80,13 @@
 
 .history {
   margin: 2rem 0;
+}
+
+.history-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
 }
 
 .history-grid {
@@ -138,6 +148,44 @@
   font-size: 0.8rem;
   color: rgba(255, 255, 255, 0.6);
 }
+
+
+
+
+.currency-switcher {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.currency-btn {
+  padding: 0.4rem 1rem;
+  border-radius: 8px;
+  border: 1px solid rgba(168, 85, 247, 0.2);
+  background: transparent;
+  color: rgba(255, 255, 255, 0.4);
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.currency-btn.active {
+  background: rgba(168, 85, 247, 0.2);
+  border-color: rgba(168, 85, 247, 0.6);
+  color: white;
+}
+
+.currency-btn:hover {
+  border-color: rgba(168, 85, 247, 0.5);
+  color: white;
+}
+
+
+
+
+
 
 /* Tablet — 768px and below */
 @media (max-width: 768px) {
