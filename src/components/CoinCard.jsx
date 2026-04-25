@@ -15,6 +15,8 @@ import { useNavigate } from 'react-router-dom'
 ChartJS.register(LineElement, PointElement, LinearScale, CategoryScale, Filler, Tooltip)
 
 const CoinCard = ({ coin, onRemove, watchlist, toggleWatchlist, currencySymbol }) => {
+  const API_KEY = import.meta.env.VITE_COINGECKO_API_KEY
+
   const navigate = useNavigate()
 
   const [chartData, setchartData] = useState([])
@@ -25,7 +27,9 @@ const CoinCard = ({ coin, onRemove, watchlist, toggleWatchlist, currencySymbol }
     const delay = index >= 0 ? index * 1000 : 0
 
     const timer = setTimeout(() => {
-      fetch(`https://api.coingecko.com/api/v3/coins/${coin.id}/market_chart?vs_currency=usd&days=7`)
+      fetch(`https://api.coingecko.com/api/v3/coins/${coin.id}/market_chart?vs_currency=usd&days=7`, {
+        headers: { 'x-cg-demo-api-key': API_KEY }
+      })
         .then(res => {
           if(!res.ok) throw new Error('Rate limited')
           return res.json()

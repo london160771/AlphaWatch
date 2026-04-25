@@ -15,6 +15,8 @@ import './CoinDetails.css'
 ChartJS.register(LineElement, PointElement, LinearScale, CategoryScale, Filler, Tooltip)
 
 const CoinDetails = () => {
+  const API_KEY = import.meta.env.VITE_COINGECKO_API_KEY
+
   const { id } = useParams()
   const navigate = useNavigate()
   const [coin, setcoin] = useState(null)
@@ -33,7 +35,9 @@ const CoinDetails = () => {
 
   useEffect(() => {
     setloading(true)
-    fetch(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currency}&ids=${id}`)
+    fetch(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currency}&ids=${id}`, {
+      headers: { 'x-cg-demo-api-key': API_KEY }
+    })
         .then(res => {
             if(!res.ok) throw new Error('Rate limited')
             return res.json()
@@ -50,7 +54,9 @@ const CoinDetails = () => {
   }, [id])
 
   useEffect(() => {
-    fetch(`https://api.coingecko.com/api/v3/coins/${id}/market_chart?vs_currency=${currency}&days=${days}`)
+    fetch(`https://api.coingecko.com/api/v3/coins/${id}/market_chart?vs_currency=${currency}&days=${days}`, {
+      headers: { 'x-cg-demo-api-key': API_KEY }
+    })
         .then(res => {
             if(!res.ok) throw new Error('Rate limited')
             return res.json()

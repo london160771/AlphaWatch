@@ -97,6 +97,35 @@
   }
 }
 
+/* iPhone 14 — 390px */
+@media (max-width: 390px) {
+  .watchlist-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .watchlist-item {
+    padding: 0.6rem;
+    gap: 0.5rem;
+  }
+
+  .watchlist-item img {
+    width: 28px;
+    height: 28px;
+  }
+
+  .watchlist-item-name {
+    font-size: 0.8rem;
+  }
+
+  .watchlist-item-price {
+    font-size: 0.72rem;
+  }
+
+  .watchlist-remove-btn {
+    font-size: 0.85rem;
+  }
+}
+
 /* Small mobile */
 @media (max-width: 320px) {
   .watchlist-grid {

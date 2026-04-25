@@ -190,3 +190,49 @@
     font-size: 0.65rem;
   }
 }
+
+/* iPhone 14 — 390px */
+@media (max-width: 390px) {
+  .coin-card {
+    padding: 0.875rem;
+  }
+
+  .coin-name {
+    font-size: 0.95rem;
+  }
+
+  .coin-card-header img {
+    width: 35px;
+    height: 35px;
+  }
+
+  .stat-label {
+    font-size: 0.75rem;
+  }
+
+  .stat-value {
+    font-size: 0.8rem;
+  }
+
+  .coin-chart {
+    height: 65px;
+  }
+}
+
+/* Small mobile — 320px */
+@media (max-width: 320px) {
+  .coin-card {
+    padding: 0.75rem;
+  }
+
+  .coin-name {
+    font-size: 0.9rem;
+  }
+
+  .watchlist-btn,
+  .remove-btn {
+    width: 22px;
+    height: 22px;
+    font-size: 0.6rem;
+  }
+}

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import './SearchBar.css'
 
 const SearchBar = ({ onSearch }) => {
+  const API_KEY = import.meta.env.VITE_COINGECKO_API_KEY
+
   const [query, setquery] = useState('')
   const [suggestions, setsuggestions] = useState([])
   const [showDropdown, setshowDropdown] = useState(false)
@@ -41,7 +43,9 @@ const SearchBar = ({ onSearch }) => {
     // ← only fetch after 500ms of no typing
     debounceRef.current = setTimeout(async () => {
       try {
-        const res = await fetch(`https://api.coingecko.com/api/v3/search?query=${value}`)
+        const res = await fetch(`https://api.coingecko.com/api/v3/search?query=${value}`, {
+          headers: { 'x-cg-demo-api-key': API_KEY }
+        })
         const data = await res.json()
         setsuggestions(data.coins.slice(0, 5))
         setshowDropdown(true)

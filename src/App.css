@@ -4,6 +4,7 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 2rem;
+  overflow-x: hidden;
 }
 
 .app-header {
@@ -254,6 +255,84 @@
 
   .stat-value {
     font-size: 0.8rem;
+  }
+}
+
+/* iPhone 14 Pro Max — 430px */
+@media (max-width: 430px) {
+  .history-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.6rem;
+  }
+
+  .history-item {
+    padding: 0.6rem;
+    gap: 0.4rem;
+  }
+
+  .history-item img {
+    width: 28px;
+    height: 28px;
+  }
+
+  .history-item-name {
+    font-size: 0.78rem;
+  }
+
+  .history-item-symbol {
+    font-size: 0.7rem;
+  }
+
+  .history-item-price {
+    font-size: 0.7rem;
+  }
+}
+
+/* iPhone 14 and similar — 390px */
+@media (max-width: 390px) {
+  .app {
+    padding: 0.875rem;
+  }
+
+  .app-title {
+    font-size: 1.6rem;
+    letter-spacing: 2px;
+  }
+
+  .coins-grid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .history-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .history-item {
+    padding: 0.6rem;
+    gap: 0.5rem;
+  }
+
+  .history-item img {
+    width: 28px;
+    height: 28px;
+  }
+
+  .history-item-name {
+    font-size: 0.8rem;
+  }
+
+  .history-item-price {
+    font-size: 0.72rem;
+  }
+
+  .currency-btn {
+    padding: 0.35rem 0.75rem;
+    font-size: 0.8rem;
+  }
+
+  .section-title {
+    font-size: 1rem;
   }
 }
 

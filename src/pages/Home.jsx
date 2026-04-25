@@ -6,6 +6,8 @@ import Watchlist from '../components/Watchlist'
 import SkeletonCard from '../components/SkeletonCard'
 
 const Home = () => {
+  const API_KEY = import.meta.env.VITE_COINGECKO_API_KEY
+
   const [coins, setcoins] = useState(() => {
     const saved = localStorage.getItem('coins')
     return saved ? JSON.parse(saved) : []
@@ -72,7 +74,9 @@ const Home = () => {
 
         const ids = coins.map((c) => c.id).join(',')
 
-        fetch(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currency}&ids=${ids}`)
+        fetch(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currency}&ids=${ids}`, {
+          headers: { 'x-cg-demo-api-key': API_KEY }
+        })
             .then(res => {
             if(!res.ok) throw new Error('Rate limited')
             return res.json()
@@ -83,7 +87,9 @@ const Home = () => {
 
 
   useEffect(() => {
-    fetch(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currency}&ids=bitcoin,ethereum,solana,dogecoin,cardano`)
+    fetch(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currency}&ids=bitcoin,ethereum,solana,dogecoin,cardano`, {
+      headers: { 'x-cg-demo-api-key': API_KEY }
+    })
         .then(res => {
         if(!res.ok) throw new Error('Rate limited')
         return res.json()
@@ -108,7 +114,9 @@ const Home = () => {
     seterror('')
 
     try {
-      const searchRes = await fetch(`https://api.coingecko.com/api/v3/search?query=${query}`)
+      const searchRes = await fetch(`https://api.coingecko.com/api/v3/search?query=${query}`, {
+        headers: { 'x-cg-demo-api-key': API_KEY }
+      })
         if(!searchRes.ok) {
             seterror('Too many requests. Please wait a moment and try again.')
             setloading(false)
@@ -123,7 +131,9 @@ const Home = () => {
       }
 
       const coinId = searchData.coins[0].id
-      const priceRes = await fetch(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currency}&ids=${coinId}`)
+      const priceRes = await fetch(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currency}&ids=${coinId}`, {
+        headers: { 'x-cg-demo-api-key': API_KEY }
+      })
       if(!priceRes.ok) {
         seterror('Too many requests. Please wait a moment and try again.')
         setloading(false)

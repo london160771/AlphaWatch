@@ -1,7 +1,7 @@
 import React from 'react'
 import './Watchlist.css'
 
-const Watchlist = ({ watchlist, toggleWatchlist, onSelect, currencySymbol }) => {
+const Watchlist = ({ watchlist, toggleWatchlist, onSelect }) => {
   if(watchlist.length === 0) return null
 
   return (
@@ -14,7 +14,7 @@ const Watchlist = ({ watchlist, toggleWatchlist, onSelect, currencySymbol }) => 
             <div className="watchlist-item-info">
               <span className="watchlist-item-name">{coin.name}</span>
               <span className="watchlist-item-symbol">{coin.symbol.toUpperCase()}</span>
-            <span className="watchlist-item-price">{currencySymbol}{coin.current_price.toLocaleString()}</span>
+              <span className="watchlist-item-price">${coin.current_price.toLocaleString()}</span>
             </div>
             <button
               className="watchlist-remove-btn"
