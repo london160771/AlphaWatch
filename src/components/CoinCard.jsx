@@ -14,7 +14,23 @@ import { useNavigate } from 'react-router-dom'
 
 ChartJS.register(LineElement, PointElement, LinearScale, CategoryScale, Filler, Tooltip)
 
-const CoinCard = ({ coin, onRemove, watchlist, toggleWatchlist, currencySymbol }) => {
+const CoinCard = ({ coin, onRemove, currencySymbol }) => {
+  const [watchlist, setwatchlist] = useState(() => {
+    const saved = localStorage.getItem('watchlist')
+    return saved ? JSON.parse(saved) : []
+  })
+
+  const toggleWatchlist = () => {
+    setwatchlist((prev) => {
+      const alreadyExists = prev.find((c) => c.id === coin.id)
+      const updated = alreadyExists
+        ? prev.filter((c) => c.id !== coin.id)
+        : [coin, ...prev]
+      localStorage.setItem('watchlist', JSON.stringify(updated))
+      return updated
+    })
+  }
+
   const API_KEY = import.meta.env.VITE_COINGECKO_API_KEY
 
   const navigate = useNavigate()
@@ -74,7 +90,7 @@ const CoinCard = ({ coin, onRemove, watchlist, toggleWatchlist, currencySymbol }
             className={`watchlist-btn ${isWatchlisted ? 'active' : ''}`}
             onClick={(e) => {
               e.stopPropagation()
-              toggleWatchlist(coin)
+              toggleWatchlist()
             }}
           >
             {isWatchlisted ? '★' : '☆'}

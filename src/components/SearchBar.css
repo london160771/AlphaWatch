@@ -1,74 +1,78 @@
-
-
-.search-input {
-  flex: 1;
-  padding: 0.875rem 1.25rem;
-  border-radius: 12px;
-  border: 1px solid rgba(168, 85, 247, 0.3);
-  background: rgba(255, 255, 255, 0.05);
-  color: white;
-  font-size: 1rem;
-  font-family: 'Space Grotesk', sans-serif;
-  outline: none;
-  transition: border 0.3s ease, background 0.3s ease;
-}
-
-.search-input::placeholder {
-  color: rgba(255, 255, 255, 0.3);
-}
-
-.search-input:focus {
-  border-color: rgba(168, 85, 247, 0.8);
-  background: rgba(255, 255, 255, 0.08);
-}
-
-.search-btn {
-  padding: 0.875rem 1.5rem;
-  border-radius: 12px;
-  border: none;
-  background: linear-gradient(135deg, #a855f7, #7c3aed);
-  color: white;
-  font-size: 0.95rem;
-  font-family: 'Space Grotesk', sans-serif;
-  font-weight: 500;
-  cursor: pointer;
-  transition: opacity 0.3s ease, transform 0.2s ease;
-  white-space: nowrap;
-}
-
-.search-btn:hover {
-  opacity: 0.9;
-  transform: scale(1.03);
-}
-
-.search-btn:active {
-  transform: scale(0.97);
-}
-
-
 .search-wrapper {
   position: relative;
-  max-width: 600px;
-  margin: 2rem auto;
+  max-width: 100%;
+  padding: 1.25rem 3rem 1.25rem;
+  margin: 0 -3rem 1.5rem;
+  background: #fff;
+  border-bottom: 0.5px solid rgba(26, 26, 26, 0.08);
 }
 
 .search-container {
   display: flex;
   gap: 0.75rem;
   align-items: center;
-  margin: 0;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.search-input {
+  flex: 1;
+  padding: 9px 14px;
+  border-radius: 8px;
+  border: 0.5px solid rgba(26, 26, 26, 0.12);
+  background: #F5F3EE;
+  color: #1a1a1a;
+  font-size: 0.875rem;
+  font-family: 'Inter', sans-serif;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.search-input::placeholder {
+  color: rgba(26, 26, 26, 0.3);
+}
+
+.search-input:focus {
+  border-color: #8B6914;
+  background: #fff;
+}
+
+.search-btn {
+  padding: 9px 18px;
+  border-radius: 8px;
+  border: 0.5px solid #8B6914;
+  background: transparent;
+  color: #8B6914;
+  font-size: 11px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.search-btn:hover {
+  background: #FAEEDA;
+}
+
+.search-btn:active {
+  transform: scale(0.98);
 }
 
 .suggestions-dropdown {
   position: absolute;
-  top: calc(100% + 8px);
-  left: 0;
-  right: 0;
-  background: #1a0030;
-  border: 1px solid rgba(168, 85, 247, 0.3);
-  border-radius: 12px;
+  top: calc(100% - 0px);
+  left: 1.25rem;
+  right: 1.25rem;
+  background: #fff;
+  border: 0.5px solid rgba(26, 26, 26, 0.12);
+  border-top: none;
+  border-radius: 0 0 10px 10px;
   overflow: hidden;
   z-index: 100;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
 }
 
 .suggestion-item {
@@ -77,11 +81,16 @@
   gap: 0.75rem;
   padding: 0.75rem 1rem;
   cursor: pointer;
-  transition: background 0.2s ease;
+  transition: background 0.15s ease;
+  border-bottom: 0.5px solid rgba(26, 26, 26, 0.05);
+}
+
+.suggestion-item:last-child {
+  border-bottom: none;
 }
 
 .suggestion-item:hover {
-  background: rgba(168, 85, 247, 0.15);
+  background: #F5F3EE;
 }
 
 .suggestion-item img {
@@ -90,70 +99,52 @@
 }
 
 .suggestion-name {
-  font-size: 0.9rem;
-  color: white;
+  font-size: 0.875rem;
+  color: #1a1a1a;
   font-weight: 500;
 }
 
 .suggestion-symbol {
-  font-size: 0.8rem;
-  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.75rem;
+  color: rgba(26, 26, 26, 0.35);
   text-transform: uppercase;
   margin-left: auto;
 }
 
-
 /* Mobile */
 @media (max-width: 480px) {
   .search-wrapper {
-    margin: 1.5rem auto;
+    padding: 0.875rem;
+    margin: 0 -0.875rem 1.5rem;
   }
 
-  .search-input {
-    padding: 0.75rem 1rem;
-    font-size: 0.9rem;
-  }
-
-  .search-btn {
-    padding: 0.75rem 1.25rem;
-    font-size: 0.9rem;
+  .suggestions-dropdown {
+    left: 0.875rem;
+    right: 0.875rem;
   }
 }
 
-/* iPhone 14 — 390px */
+/* iPhone 14 */
 @media (max-width: 390px) {
-  .search-wrapper {
-    margin: 1rem auto;
-  }
-
   .search-input {
-    padding: 0.7rem 0.875rem;
-    font-size: 0.875rem;
+    font-size: 0.82rem;
+    padding: 8px 12px;
   }
 
   .search-btn {
-    padding: 0.7rem 1rem;
-    font-size: 0.875rem;
-  }
-
-  .suggestion-item {
-    padding: 0.6rem 0.875rem;
-  }
-
-  .suggestion-name {
-    font-size: 0.85rem;
+    padding: 8px 14px;
+    font-size: 10px;
   }
 }
 
-/* Small mobile — 320px */
+/* Small mobile */
 @media (max-width: 320px) {
   .search-input {
-    padding: 0.65rem 0.75rem;
-    font-size: 0.8rem;
+    font-size: 0.78rem;
+    padding: 7px 10px;
   }
 
   .search-btn {
-    padding: 0.65rem 0.875rem;
-    font-size: 0.8rem;
+    padding: 7px 12px;
   }
 }

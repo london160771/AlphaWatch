@@ -1,0 +1,252 @@
+.sim-search {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  padding-top: 1.5rem;
+}
+
+.sim-search .form-input {
+  flex: 1;
+}
+
+.sim-coin-header {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  background: #fff;
+  border: 0.5px solid rgba(26, 26, 26, 0.08);
+  border-radius: 10px;
+  padding: 0.875rem 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.sim-coin-header img {
+  border-radius: 50%;
+}
+
+.sim-coin-name {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #1a1a1a;
+}
+
+.sim-coin-price {
+  font-size: 0.78rem;
+  color: rgba(26, 26, 26, 0.4);
+  margin-top: 2px;
+}
+
+.sim-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.sim-results {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+}
+
+.sim-card {
+  background: #fff;
+  border: 0.5px solid rgba(26, 26, 26, 0.08);
+  border-radius: 10px;
+  padding: 1.1rem 1.25rem;
+}
+
+.sim-card-label {
+  font-size: 0.7rem;
+  color: rgba(26, 26, 26, 0.35);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 0.75rem;
+  font-weight: 500;
+}
+
+.sim-card-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 0;
+  border-bottom: 0.5px solid rgba(26, 26, 26, 0.05);
+}
+
+.sim-card-row:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.sim-card-sub {
+  font-size: 0.82rem;
+  color: rgba(26, 26, 26, 0.4);
+}
+
+.sim-card-value {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #1a1a1a;
+  font-variant-numeric: tabular-nums;
+}
+
+.sim-card-value.up { color: #3B6D11; }
+.sim-card-value.down { color: #A32D2D; }
+
+.sim-scenarios {
+  background: #fff;
+  border: 0.5px solid rgba(26, 26, 26, 0.08);
+  border-radius: 10px;
+  padding: 1.1rem 1.25rem;
+}
+
+.sim-scenarios-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.6rem;
+  margin-top: 0.75rem;
+}
+
+.sim-scenario-card {
+  border-radius: 8px;
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.sim-scenario-card:hover {
+  opacity: 0.8;
+}
+
+.sim-scenario-card.up-card {
+  background: #EAF3DE;
+  border: 0.5px solid #C0DD97;
+}
+
+.sim-scenario-card.down-card {
+  background: #FCEBEB;
+  border: 0.5px solid #F7C1C1;
+}
+
+.scenario-label {
+  font-size: 0.68rem;
+  color: rgba(26, 26, 26, 0.4);
+  font-weight: 500;
+}
+
+.scenario-price {
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: #1a1a1a;
+  font-variant-numeric: tabular-nums;
+}
+
+.scenario-pnl {
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.scenario-percent {
+  font-size: 0.68rem;
+}
+
+.sim-slider-section {
+  background: #fff;
+  border: 0.5px solid rgba(26, 26, 26, 0.08);
+  border-radius: 10px;
+  padding: 1.1rem 1.25rem;
+}
+
+.sim-slider-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.875rem;
+}
+
+.sim-slider-value {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #8B6914;
+  font-variant-numeric: tabular-nums;
+}
+
+.sim-slider {
+  width: 100%;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(26, 26, 26, 0.08);
+  outline: none;
+  margin-bottom: 0.4rem;
+}
+
+.sim-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #8B6914;
+  cursor: pointer;
+  border: 2px solid #fff;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+}
+
+.sim-slider-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.7rem;
+  color: rgba(26, 26, 26, 0.3);
+  margin-bottom: 0.875rem;
+}
+
+.sim-exit-result {
+  border-radius: 8px;
+  padding: 0.875rem 1rem;
+}
+
+.sim-exit-result.up-bg {
+  background: #EAF3DE;
+  border: 0.5px solid #C0DD97;
+}
+
+.sim-exit-result.down-bg {
+  background: #FCEBEB;
+  border: 0.5px solid #F7C1C1;
+}
+
+.sim-exit-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 3px 0;
+  font-size: 0.875rem;
+  color: rgba(26, 26, 26, 0.5);
+}
+
+.up { color: #3B6D11; }
+.down { color: #A32D2D; }
+
+@media (max-width: 480px) {
+  .sim-search { flex-direction: column; }
+  .sim-scenarios-grid { grid-template-columns: repeat(2, 1fr); }
+  .sim-card { padding: 1rem; }
+  .sim-slider-section { padding: 1rem; }
+}
+
+@media (max-width: 390px) {
+  .sim-card { padding: 0.875rem; }
+  .sim-slider-section { padding: 0.875rem; }
+  .sim-scenarios-grid { gap: 0.5rem; }
+  .sim-scenario-card { padding: 0.65rem; }
+}
+
+@media (max-width: 320px) {
+  .sim-card-sub { font-size: 0.75rem; }
+  .sim-card-value { font-size: 0.82rem; }
+}

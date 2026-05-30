@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import SearchBar from '../components/SearchBar'
 import CoinCard from '../components/CoinCard'
 import PopularCoins from '../components/PopularCoins'
-import Watchlist from '../components/Watchlist'
 import SkeletonCard from '../components/SkeletonCard'
 
 const Home = () => {
@@ -19,10 +18,6 @@ const Home = () => {
     return saved ? JSON.parse(saved) : []
   })
   const [popularCoins, setpopularCoins] = useState([])
-  const [watchlist, setwatchlist] = useState(() => {
-    const saved = localStorage.getItem('watchlist')
-    return saved ? JSON.parse(saved) : []
-  })
   const [currency, setcurrency] = useState(() => {
     return localStorage.getItem('currency') || 'usd'
   })
@@ -64,10 +59,6 @@ const Home = () => {
     localStorage.setItem('searchHistory', JSON.stringify(history))
   }, [history])
 
-  useEffect(() => {
-    localStorage.setItem('watchlist', JSON.stringify(watchlist))
-  }, [watchlist])
-
 
  useEffect(() => {
         if(coins.length === 0) return
@@ -100,14 +91,6 @@ const Home = () => {
         })
         .catch(err => console.log(err))
     }, [currency])
-
-  const toggleWatchlist = (coin) => {
-    setwatchlist((prev) => {
-      const alreadyExists = prev.find((c) => c.id === coin.id)
-      if(alreadyExists) return prev.filter((c) => c.id !== coin.id)
-      return [coin, ...prev]
-    })
-  }
 
   const handleSearch = async (query) => {
     setloading(true)
@@ -165,7 +148,7 @@ const Home = () => {
   return (
     <div className="app">
       <div className="app-header">
-        <h1 className="app-title">AlphaWatch</h1>
+        <h1 className="app-title">Alpha<span>Watch</span></h1>
         <p className="app-subtitle">Real-time crypto tracker</p>
         <div className="currency-switcher">
             {['usd', 'eur', 'gbp'].map((c) => (
@@ -199,24 +182,10 @@ const Home = () => {
             key={coin.id}
             coin={coin}
             onRemove={(id) => setcoins((prev) => prev.filter((c) => c.id !== id))}
-            watchlist={watchlist}
-            toggleWatchlist={toggleWatchlist}
             currencySymbol={getCurrencySymbol()}
           />
         ))}
       </div>
-      <Watchlist
-        watchlist={watchlist}
-        toggleWatchlist={toggleWatchlist}
-        currencySymbol={getCurrencySymbol()}
-        onSelect={(coin) => {
-          setcoins((prev) => {
-            const alreadyExists = prev.find((c) => c.id === coin.id)
-            if(alreadyExists) return prev
-            return [coin, ...prev]
-          })
-        }}
-      />
       <PopularCoins coins={getSortedAndFilteredCoins()} currencySymbol={getCurrencySymbol()} onSelect={(coin) => {
         setcoins((prev) => {
           const alreadyExists = prev.find((c) => c.id === coin.id)

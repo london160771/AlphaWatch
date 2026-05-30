@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap');
 
 * {
   margin: 0;
@@ -7,8 +7,18 @@
 }
 
 body {
-  font-family: 'Space Grotesk', sans-serif;
-  background: linear-gradient(135deg, #0a0010 0%, #1a0030 50%, #0a0010 100%);
+  font-family: 'Inter', sans-serif;
+  background: #F5F3EE;
   min-height: 100vh;
-  color: white;
+  color: #1a1a1a;
+}
+
+#root {
+  padding-bottom: 65px;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
