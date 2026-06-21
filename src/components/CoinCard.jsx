@@ -11,37 +11,55 @@ import {
   Tooltip
 } from 'chart.js'
 import { useNavigate } from 'react-router-dom'
+import { useAuth } from '../context/AuthContext'
+import { updateWatchlist } from '../services/api'
 
 ChartJS.register(LineElement, PointElement, LinearScale, CategoryScale, Filler, Tooltip)
 
-const CoinCard = ({ coin, onRemove, currencySymbol }) => {
-  const [watchlist, setwatchlist] = useState(() => {
-    const saved = localStorage.getItem('watchlist')
-    return saved ? JSON.parse(saved) : []
-  })
-
-  const toggleWatchlist = () => {
-    setwatchlist((prev) => {
-      const alreadyExists = prev.find((c) => c.id === coin.id)
-      const updated = alreadyExists
-        ? prev.filter((c) => c.id !== coin.id)
-        : [coin, ...prev]
-      localStorage.setItem('watchlist', JSON.stringify(updated))
-      return updated
-    })
+const getWatchlist = () => {
+  try {
+    return JSON.parse(localStorage.getItem('watchlist') || '[]')
+  } catch {
+    return []
   }
+}
 
+const CoinCard = ({ coin, onRemove, currencySymbol }) => {
+  const { user, setuserData } = useAuth()
+  const navigate = useNavigate()
   const API_KEY = import.meta.env.VITE_COINGECKO_API_KEY
 
-  const navigate = useNavigate()
-
+  const [watchlist, setwatchlist] = useState(getWatchlist)
   const [chartData, setchartData] = useState([])
   const [chartError, setchartError] = useState(false)
 
+  // listen for watchlist changes from any component
   useEffect(() => {
-    const index = watchlist.findIndex((c) => c.id === coin.id)
-    const delay = index >= 0 ? index * 1000 : 0
+    const handleWatchlistChange = () => {
+      setwatchlist(getWatchlist())
+    }
+    window.addEventListener('watchlistUpdated', handleWatchlistChange)
+    return () => window.removeEventListener('watchlistUpdated', handleWatchlistChange)
+  }, [])
 
+  const toggleWatchlist = () => {
+    const current = getWatchlist()
+    const alreadyExists = current.find((c) => c.id === coin.id)
+    const updated = alreadyExists
+      ? current.filter((c) => c.id !== coin.id)
+      : [coin, ...current]
+
+    localStorage.setItem('watchlist', JSON.stringify(updated))
+    setwatchlist(updated)
+    setuserData(prev => ({ ...prev, watchlist: updated }))
+    window.dispatchEvent(new Event('watchlistUpdated'))
+
+    if(user) {
+      updateWatchlist(updated).catch(err => console.log(err))
+    }
+  }
+
+  useEffect(() => {
     const timer = setTimeout(() => {
       fetch(`https://api.coingecko.com/api/v3/coins/${coin.id}/market_chart?vs_currency=usd&days=7`, {
         headers: { 'x-cg-demo-api-key': API_KEY }
@@ -60,12 +78,13 @@ const CoinCard = ({ coin, onRemove, currencySymbol }) => {
           console.log(err)
           setchartError(true)
         })
-    }, delay)
+    }, 500)
 
     return () => clearTimeout(timer)
   }, [coin.id])
 
-  if(!coin) return null
+  // if(!coin) return null
+  if(!coin || !coin.current_price || !coin.price_change_percentage_24h) return null
 
   const isUp = coin.price_change_percentage_24h >= 0
   const isWatchlisted = watchlist.find((c) => c.id === coin.id)

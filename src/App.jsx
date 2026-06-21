@@ -8,12 +8,16 @@ import CoinDetails from './pages/CoinDetails'
 import BottomNav from './components/BottomNav'
 import './App.css'
 import Simulator from './pages/Simulator'
+import Login from './pages/Login'
+import Signup from './pages/Signup'
 
 const App = () => {
   const location = useLocation()
 
   // hide bottom nav on coin details page
-  const hideNav = location.pathname.startsWith('/coin/')
+  const hideNav = location.pathname.startsWith('/coin/') ||
+  location.pathname === '/login' ||
+  location.pathname === '/signup'
 
   return (
     <>
@@ -24,6 +28,8 @@ const App = () => {
         <Route path="/watchlist" element={<Watchlist />} />
         <Route path="/coin/:id" element={<CoinDetails />} />
         <Route path="/simulator" element={<Simulator />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
       </Routes>
       {!hideNav && <BottomNav />}
     </>

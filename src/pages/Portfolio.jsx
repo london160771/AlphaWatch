@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import './Portfolio.css'
+import { useAuth } from '../context/AuthContext'
+import { updatePortfolio } from '../services/api'
 import { Doughnut } from 'react-chartjs-2'
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
 
@@ -9,23 +11,37 @@ ChartJS.register(ArcElement, Tooltip, Legend)
 const Portfolio = () => {
   const navigate = useNavigate()
   const API_KEY = import.meta.env.VITE_COINGECKO_API_KEY
+  const { user, userData, setuserData } = useAuth()
 
   const [editingId, seteditingId] = useState(null)
   const [editValues, seteditValues] = useState({ amount: '', buyPrice: '' })
 
-  const [holdings, setholdings] = useState(() => {
-    const saved = localStorage.getItem('holdings')
-    return saved ? JSON.parse(saved) : []
-  })
+  const [holdings, setholdings] = useState(userData.portfolio || [])
 
   const [showAddForm, setshowAddForm] = useState(false)
   const [newCoin, setnewCoin] = useState({ name: '', amount: '', buyPrice: '' })
   const [error, seterror] = useState('')
   const [loading, setloading] = useState(false)
 
+  // sync portfolio from AuthContext
+  useEffect(() => {
+    setholdings(userData.portfolio || [])
+  }, [userData.portfolio])
+
+  // Clear holdings when user logs out
+  useEffect(() => {
+    if(!user) {
+      setholdings([])
+    }
+  }, [user])
+
+  // save portfolio to localStorage and backend
   useEffect(() => {
     localStorage.setItem('holdings', JSON.stringify(holdings))
-  }, [holdings])
+    if(user?._id) {
+      updatePortfolio(holdings).catch(err => console.log('Error saving portfolio:', err))
+    }
+  }, [holdings, user?._id])
 
   useEffect(() => {
     if(holdings.length === 0) return
@@ -91,7 +107,9 @@ const Portfolio = () => {
           seterror('Coin already in portfolio')
           return prev
         }
-        return [holding, ...prev]
+        const updated = [holding, ...prev]
+        setuserData(prev => ({ ...prev, portfolio: updated }))
+        return updated
       })
 
       setnewCoin({ name: '', amount: '', buyPrice: '' })
@@ -110,16 +128,20 @@ const Portfolio = () => {
       return
     }
 
-    setholdings((prev) => prev.map((h) => {
-      if(h.id === id) {
-        return {
-          ...h,
-          amount: parseFloat(editValues.amount),
-          buyPrice: parseFloat(editValues.buyPrice)
+    setholdings((prev) => {
+      const updated = prev.map((h) => {
+        if(h.id === id) {
+          return {
+            ...h,
+            amount: parseFloat(editValues.amount),
+            buyPrice: parseFloat(editValues.buyPrice)
+          }
         }
-      }
-      return h
-    }))
+        return h
+      })
+      setuserData(prevUserData => ({ ...prevUserData, portfolio: updated }))
+      return updated
+    })
 
     seteditingId(null)
     seteditValues({ amount: '', buyPrice: '' })
@@ -313,7 +335,11 @@ const Portfolio = () => {
                         seteditingId(holding.id)
                         seteditValues({ amount: holding.amount, buyPrice: holding.buyPrice })
                       }}>✎</button>
-                      <button className="holding-remove" onClick={() => setholdings((prev) => prev.filter((h) => h.id !== holding.id))}>✕</button>
+                      <button className="holding-remove" onClick={() => setholdings((prev) => {
+                        const updated = prev.filter((h) => h.id !== holding.id)
+                        setuserData(prevUserData => ({ ...prevUserData, portfolio: updated }))
+                        return updated
+                      })}>✕</button>
                     </>
                   )}
                 </div>

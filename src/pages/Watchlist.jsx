@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import './Watchlist.css'
+import { useAuth } from '../context/AuthContext'
+import { updateWatchlist } from '../services/api'
+
+const getWatchlist = () => {
+  try { return JSON.parse(localStorage.getItem('watchlist') || '[]') }
+  catch { return [] }
+}
 
 const Watchlist = () => {
+  const { user, userData, setuserData } = useAuth()
   const navigate = useNavigate()
-  const [watchlist, setwatchlist] = useState(() => {
-    const saved = localStorage.getItem('watchlist')
-    return saved ? JSON.parse(saved) : []
-  })
+  const [watchlist, setwatchlist] = useState([])
 
   const currency = localStorage.getItem('currency') || 'usd'
 
@@ -17,12 +22,41 @@ const Watchlist = () => {
     return '$'
   }
 
+  // listen for watchlist changes from CoinCard
   useEffect(() => {
-    localStorage.setItem('watchlist', JSON.stringify(watchlist))
-  }, [watchlist])
+    const handleWatchlistChange = () => setwatchlist(getWatchlist())
+    window.addEventListener('watchlistUpdated', handleWatchlistChange)
+    return () => window.removeEventListener('watchlistUpdated', handleWatchlistChange)
+  }, [])
+
+  // sync with userData from AuthContext
+  useEffect(() => {
+    console.log('userData.watchlist changed:', userData.watchlist)
+    setwatchlist(userData.watchlist || [])
+  }, [userData.watchlist])
+
+  // Clear watchlist when user logs out
+  useEffect(() => {
+    if(!user) {
+      setwatchlist([])
+    }
+  }, [user])
 
   const removeFromWatchlist = (id) => {
-    setwatchlist((prev) => prev.filter((c) => c.id !== id))
+    const updated = watchlist.filter((c) => c.id !== id)
+    setwatchlist(updated)
+    localStorage.setItem('watchlist', JSON.stringify(updated))
+    setuserData(prev => ({ ...prev, watchlist: updated }))
+    window.dispatchEvent(new Event('watchlistUpdated'))
+    if(user) updateWatchlist(updated).catch(err => console.log(err))
+  }
+
+  const clearWatchlist = () => {
+    setwatchlist([])
+    localStorage.setItem('watchlist', JSON.stringify([]))
+    setuserData(prev => ({ ...prev, watchlist: [] }))
+    window.dispatchEvent(new Event('watchlistUpdated'))
+    if(user) updateWatchlist([]).catch(err => console.log(err))
   }
 
   return (
@@ -30,7 +64,7 @@ const Watchlist = () => {
       <div className="page-header">
         <h1 className="page-title">Watchlist</h1>
         {watchlist.length > 0 && (
-          <button className="clear-btn" onClick={() => setwatchlist([])}>Clear All</button>
+          <button className="clear-btn" onClick={clearWatchlist}>Clear All</button>
         )}
       </div>
 

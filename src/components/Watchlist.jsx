@@ -1,6 +1,7 @@
 import React from 'react'
 import './Watchlist.css'
 
+
 const Watchlist = ({ watchlist, toggleWatchlist, onSelect }) => {
   if(watchlist.length === 0) return null
 
