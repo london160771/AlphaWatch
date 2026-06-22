@@ -344,7 +344,23 @@
     font-size: 28px;
   }
   .user-info {
-    display: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+
+  .user-name {
+    font-size: 0.72rem;
+  }
+
+  .logout-btn {
+    font-size: 0.65rem;
+  }
+
+  .user-avatar {
+    width: 30px;
+    height: 30px;
+    font-size: 0.75rem;
   }
 
   .signin-btn {
@@ -389,6 +405,14 @@
 
   .history-item-name {
     font-size: 0.78rem;
+  }
+
+  .user-name {
+    display: none;
+  }
+
+  .logout-btn {
+    font-size: 0.65rem;
   }
 }
 
