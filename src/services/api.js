@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost:5001/api'
+const BASE_URL = 'https://alphawatch-server.onrender.com/api'
 
 const getToken = () => localStorage.getItem('token')
 
